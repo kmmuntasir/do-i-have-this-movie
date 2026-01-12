@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do I Have This Movie? - Settings</title>
+  <style>
+    :root {
+      --primary: #00a4dc;
+      --bg: #1a1a1a;
+      --surface: #2d2d2d;
+      --text: #ffffff;
+      --text-dim: #b0b0b0;
+      --accent: #52bdec;
+    }
+
+    body {
+      width: 320px;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-placeholder {
+      width: 24px;
+      height: 24px;
+      background: var(--primary);
+      border-radius: 4px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--surface);
+      background: var(--surface);
+      color: var(--text);
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: var(--accent);
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 8px;
+      border-radius: 4px;
+      display: none;
+    }
+
+    .status.success {
+      background: rgba(40, 167, 69, 0.2);
+      color: #28a745;
+      display: block;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h2>
+    <div class="icon-placeholder"></div>
+    Jellyfin Settings
+  </h2>
+
+  <div class="form-group">
+    <label for="serverUrl">Jellyfin Server URL</label>
+    <input type="text" id="serverUrl" placeholder="http://192.168.1.10:8096">
+  </div>
+
+  <div class="form-group">
+    <label for="apiKey">API Key</label>
+    <input type="password" id="apiKey" placeholder="Enter your API key">
+  </div>
+
+  <button id="saveBtn">Save Settings</button>
+
+  <div id="status" class="status">Settings saved!</div>
+
+  <div class="footer">
+    Works on Netflix, IMDb, and Letterboxd.
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

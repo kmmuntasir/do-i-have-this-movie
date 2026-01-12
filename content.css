@@ -1,0 +1,32 @@
+.jellyfin-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  border-radius: 50%;
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.jellyfin-badge svg {
+  width: 70%;
+  height: 70%;
+}
+
+/* Specific fix for YTS main poster with its 15px padding */
+#movie-poster .jellyfin-badge {
+  right: 23px;
+  /* 15px padding + 8px offset */
+}
+
+/* Specific tweaks for Netflix */
+.netflix-card-badge {
+  /* Potential class for more specific targeting if needed */
+}

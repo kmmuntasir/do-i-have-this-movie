@@ -4,6 +4,10 @@
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-green.svg)
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-orange.svg)
 
+## 🔗 Repository
+
+**GitHub:** [Do I Have This Movie?](https://github.com/kmmuntasir/do-i-have-this-movie)
+
 ## 📖 Description
 
 **Do I Have This Movie?** is a Chrome browser extension that helps you quickly check if movies and TV shows you encounter on streaming platforms and media databases are already in your personal Jellyfin media server library.

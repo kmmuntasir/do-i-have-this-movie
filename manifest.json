@@ -3,6 +3,7 @@
   "name": "Do I Have This Movie?",
   "version": "1.0",
   "description": "Check if a movie on Netflix or IMDb is in your Jellyfin library.",
+  "homepage": "https://github.com/kmmuntasir/do-i-have-this-movie",
   "permissions": [
     "storage",
     "activeTab"

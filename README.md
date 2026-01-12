@@ -48,7 +48,7 @@ Before installing the extension, ensure you have:
 ### Step 1: Clone or Download the Repository
 
 ```bash
-git clone https://github.com/yourusername/do-i-have-this-movie.git
+git clone https://github.com/kmmuntasir/do-i-have-this-movie.git
 ```
 
 Or download and extract the ZIP file from the repository.

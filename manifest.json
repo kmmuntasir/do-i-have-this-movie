@@ -30,7 +30,7 @@
         "*://*.yts.bz/*"
       ],
       "js": [
-        "content.js"
+        "dist/content-bundled.js"
       ],
       "css": [
         "content.css"

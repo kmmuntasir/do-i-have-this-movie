@@ -44,31 +44,29 @@ async function processItems(adapter) {
                 year: year
             });
 
-            if (response && response.found) {
-                injectBadge(item, adapter.getBadgeParent(item));
+            if (response && response.success && response.results) {
+                const foundSources = response.results.filter(r => r.found);
+                if (foundSources.length > 0) {
+                    injectBadge(item, adapter.getBadgeParent(item), foundSources);
+                }
             }
         }
     }
 }
 
-function injectBadge(item, parent) {
+function injectBadge(item, parent, foundSources) {
     if (!parent) return;
 
     const badge = document.createElement('div');
     badge.className = 'jellyfin-badge';
-
-    const badgeUrl = chrome.runtime.getURL('icons/badge.svg');
     
-    fetch(badgeUrl)
-        .then(response => response.text())
-        .then(svgContent => {
-            badge.innerHTML = svgContent;
-            parent.style.position = 'relative';
-            parent.appendChild(badge);
-        })
-        .catch(error => {
-            console.error('Failed to load badge SVG:', error);
-        });
+    // Show count or list of sources
+    const sourceNames = foundSources.map(s => s.sourceName).join(', ');
+    badge.textContent = `✓ ${foundSources.length > 1 ? foundSources.length + ' sources' : sourceNames}`;
+    badge.title = `Found in: ${sourceNames}`;
+    
+    parent.style.position = 'relative';
+    parent.appendChild(badge);
 }
 
 init();

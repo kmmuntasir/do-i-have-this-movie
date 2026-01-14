@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Do I Have This Movie - Configuration</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Media Sources Configuration</h1>
+    
+    <div class="sources-container">
+      <!-- Jellyfin Section -->
+      <div class="source-section" data-source="jellyfin">
+        <div class="source-header">
+          <h2>Jellyfin</h2>
+          <label class="toggle">
+            <input type="checkbox" id="jellyfin-enabled">
+            <span class="slider"></span>
+            <span class="label-text">Enabled</span>
+          </label>
+        </div>
+        <div class="config-form">
+          <div class="field-group">
+            <label for="jellyfin-serverUrl">Server URL</label>
+            <input type="url" id="jellyfin-serverUrl" placeholder="https://jellyfin.example.com">
+          </div>
+          <div class="field-group">
+            <label for="jellyfin-apiKey">API Key</label>
+            <input type="password" id="jellyfin-apiKey" placeholder="Enter your API key">
+          </div>
+          <div class="button-group">
+            <button class="test-btn" data-source="jellyfin">Test Connection</button>
+            <button class="save-btn" data-source="jellyfin">Save</button>
+          </div>
+          <div class="status" id="jellyfin-status"></div>
+        </div>
+      </div>
+
+      <!-- Emby Section -->
+      <div class="source-section" data-source="emby">
+        <div class="source-header">
+          <h2>Emby</h2>
+          <label class="toggle">
+            <input type="checkbox" id="emby-enabled">
+            <span class="slider"></span>
+            <span class="label-text">Enabled</span>
+          </label>
+        </div>
+        <div class="config-form">
+          <div class="field-group">
+            <label for="emby-serverUrl">Server URL</label>
+            <input type="url" id="emby-serverUrl" placeholder="https://emby.example.com">
+          </div>
+          <div class="field-group">
+            <label for="emby-apiKey">API Key</label>
+            <input type="password" id="emby-apiKey" placeholder="Enter your API key">
+          </div>
+          <div class="button-group">
+            <button class="test-btn" data-source="emby">Test Connection</button>
+            <button class="save-btn" data-source="emby">Save</button>
+          </div>
+          <div class="status" id="emby-status"></div>
+        </div>
+      </div>
+
+      <!-- Plex Section -->
+      <div class="source-section" data-source="plex">
+        <div class="source-header">
+          <h2>Plex</h2>
+          <label class="toggle">
+            <input type="checkbox" id="plex-enabled">
+            <span class="slider"></span>
+            <span class="label-text">Enabled</span>
+          </label>
+        </div>
+        <div class="config-form">
+          <div class="field-group">
+            <label for="plex-serverUrl">Server URL</label>
+            <input type="url" id="plex-serverUrl" placeholder="https://plex.example.com:32400">
+          </div>
+          <div class="field-group">
+            <label for="plex-token">Plex Token</label>
+            <input type="password" id="plex-token" placeholder="Enter your Plex token">
+          </div>
+          <div class="button-group">
+            <button class="test-btn" data-source="plex">Test Connection</button>
+            <button class="save-btn" data-source="plex">Save</button>
+          </div>
+          <div class="status" id="plex-status"></div>
+        </div>
+      </div>
+
+      <!-- Local Files Section -->
+      <div class="source-section" data-source="local">
+        <div class="source-header">
+          <h2>Local Files</h2>
+          <label class="toggle">
+            <input type="checkbox" id="local-enabled">
+            <span class="slider"></span>
+            <span class="label-text">Enabled</span>
+          </label>
+        </div>
+        <div class="config-form">
+          <div class="field-group">
+            <label for="local-paths">Movie Directories (one per line)</label>
+            <textarea id="local-paths" rows="4" placeholder="C:/Movies&#10;D:/Videos/HD"></textarea>
+          </div>
+          <div class="field-group checkbox-group">
+            <label>
+              <input type="checkbox" id="local-recursive">
+              Search subdirectories
+            </label>
+          </div>
+          <div class="button-group">
+            <button class="save-btn" data-source="local">Save</button>
+          </div>
+          <div class="status" id="local-status"></div>
+          <p class="note">Note: Local file system access requires the File System Access API or a native host application.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

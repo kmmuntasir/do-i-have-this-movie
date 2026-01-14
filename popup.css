@@ -1,0 +1,155 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 350px;
+  padding: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+h2 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.source-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.source-section label {
+  font-weight: 500;
+  color: #333;
+}
+
+.source-section select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.config-form.hidden {
+  display: none;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-group label {
+  font-size: 13px;
+  color: #555;
+}
+
+.field-group input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.field-group input[type="password"] {
+  font-family: monospace;
+}
+
+.field-group textarea {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: monospace;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.field-group input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+.field-group label:has(+ input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+}
+
+.button-group button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#testConnectionBtn {
+  background-color: #6c757d;
+  color: white;
+}
+
+#testConnectionBtn:hover {
+  background-color: #5a6268;
+}
+
+#saveBtn {
+  background-color: #007bff;
+  color: white;
+}
+
+#saveBtn:hover {
+  background-color: #0056b3;
+}
+
+.status {
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.status.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status.info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}

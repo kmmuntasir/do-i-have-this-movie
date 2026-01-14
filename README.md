@@ -30,7 +30,6 @@ Perfect for media enthusiasts who maintain a personal media collection, this ext
 |---------|-----|--------|
 | Netflix | netflix.com | ✅ Fully Supported |
 | IMDb | imdb.com | ✅ Fully Supported |
-| Letterboxd | letterboxd.com | ⚠️ Partially Implemented |
 | YTS.bz | yts.bz | ✅ Fully Supported |
 
 > **Note:** All supported platforms work for both movies and TV shows.

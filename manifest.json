@@ -3,7 +3,6 @@
   "name": "Do I Have This Movie?",
   "version": "1.0",
   "description": "Check if a movie on Netflix or IMDb is in your Jellyfin library.",
-  "homepage": "https://github.com/kmmuntasir/do-i-have-this-movie",
   "permissions": [
     "storage",
     "activeTab"
@@ -14,9 +13,9 @@
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png",
-      "128": "icons/icon128.png"
+      "16": "icons/icon.png",
+      "48": "icons/icon.png",
+      "128": "icons/icon.png"
     }
   },
   "background": {
@@ -39,8 +38,14 @@
     }
   ],
   "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
-  }
+    "16": "icons/icon.png",
+    "48": "icons/icon.png",
+    "128": "icons/icon.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/badge.svg"],
+      "matches": ["*://*.netflix.com/*", "*://*.imdb.com/*", "*://*.letterboxd.com/*", "*://*.yts.bz/*"]
+    }
+  ]
 }

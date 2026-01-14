@@ -97,45 +97,19 @@ function injectBadge(item, parent) {
 
     const badge = document.createElement('div');
     badge.className = 'jellyfin-badge';
-    badge.innerHTML = `
-      <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
-        <path d="M24.711 49.158c-1.552-3.116 8.626-21.57 11.788-21.57 3.167.002 13.323 18.488 11.788 21.57-1.535 3.081-22.025 3.115-23.577 0h.001z"
-              fill="url(#prefix___Linear1)" fill-rule="nonzero"
-              transform="matrix(6.94432 0 0 6.94432 2.538 6.006)"/>
-        <path d="M.98 64.996C-3.695 55.606 26.977.001 36.5.001c9.533 0 40.153 55.713 35.527 64.995-4.626 9.282-66.368 9.391-71.045 0
-                 m12.255-8.148c3.065 6.152 43.518 6.084 46.548 0
-                 3.03-6.086-17.033-42.587-23.275-42.587
-                 -6.242 0-26.34 36.434-23.276 42.587h.003z"
-              fill="url(#prefix___Linear2)"
-              transform="matrix(6.94432 0 0 6.94432 2.538 6.006)"/>
-        <g>
-          <circle cx="420" cy="92" r="48" fill="#22c55e"/>
-          <path d="M395 92l18 18 32-36"
-                fill="none"
-                stroke="#ffffff"
-                stroke-width="12"
-                stroke-linecap="round"
-                stroke-linejoin="round"/>
-        </g>
-        <defs>
-          <linearGradient id="prefix___Linear1" x1="0" y1="0" x2="1" y2="0"
-                          gradientUnits="userSpaceOnUse"
-                          gradientTransform="matrix(60 33 -33 60 12.499 30)">
-            <stop offset="0" stop-color="#aa5cc3"/>
-            <stop offset="1" stop-color="#00a4dc"/>
-          </linearGradient>
-          <linearGradient id="prefix___Linear2" x1="0" y1="0" x2="1" y2="0"
-                          gradientUnits="userSpaceOnUse"
-                          gradientTransform="matrix(60 33 -33 60 12.499 30)">
-            <stop offset="0" stop-color="#aa5cc3"/>
-            <stop offset="1" stop-color="#00a4dc"/>
-          </linearGradient>
-        </defs>
-      </svg>
-  `;
 
-    parent.style.position = 'relative';
-    parent.appendChild(badge);
+    const badgeUrl = chrome.runtime.getURL('icons/badge.svg');
+    
+    fetch(badgeUrl)
+        .then(response => response.text())
+        .then(svgContent => {
+            badge.innerHTML = svgContent;
+            parent.style.position = 'relative';
+            parent.appendChild(badge);
+        })
+        .catch(error => {
+            console.error('Failed to load badge SVG:', error);
+        });
 }
 
 init();

@@ -20,7 +20,7 @@ The extension follows a modular, three-tier architecture designed for extensibil
 ┌─────────────────────────────────────────────────────────────┐
 │                        Browser Layer                         │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
-│  │   Netflix    │  │    IMDb     │  │    YTS.bz    │      │
+│  │   Netflix    │  │    IMDb     │  │    YTS.gg    │      │
 │  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘      │
 │         │                 │                 │              │
 │         └─────────────────┴─────────────────┘              │
@@ -114,7 +114,7 @@ Singleton registry that manages all registered adapters:
 
 - **NetflixAdapter** ([`adapters/netflix-adapter.js`](../adapters/netflix-adapter.js)) - Handles Netflix.com
 - **IMDBAdapter** ([`adapters/imdb-adapter.js`](../adapters/imdb-adapter.js)) - Handles IMDb.com
-- **YTSAdapter** ([`adapters/yts-adapter.js`](../adapters/yts-adapter.js)) - Handles YTS.bz
+- **YTSAdapter** ([`adapters/yts-adapter.js`](../adapters/yts-adapter.js)) - Handles YTS (yts.gg and its mirror domains)
 
 ### 4. Popup Interface (`popup.html` + `popup.js`)
 
@@ -304,7 +304,7 @@ do-i-have-this-movie/
 │   ├── adapter-registry.js     # Adapter registry (singleton)
 │   ├── netflix-adapter.js      # Netflix implementation
 │   ├── imdb-adapter.js         # IMDb implementation
-│   └── yts-adapter.js          # YTS.bz implementation
+│   └── yts-adapter.js          # YTS (yts.gg) implementation
 ├── docs/                       # Documentation
 │   ├── installation.md
 │   ├── setup-guide.md
@@ -346,7 +346,7 @@ The extension uses **Manifest V3**, the latest Chrome extension format. Key conf
   "host_permissions": [
     "https://www.netflix.com/*",
     "https://www.imdb.com/*",
-    "https://yts.bz/*"
+    "https://yts.gg/*"
   ]
 }
 ```

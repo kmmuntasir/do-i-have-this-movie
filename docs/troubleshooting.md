@@ -142,7 +142,7 @@ Check if the website is supported:
 |---------|--------|
 | Netflix | ✅ Fully Supported |
 | IMDb | ✅ Fully Supported |
-| YTS.bz | ✅ Fully Supported |
+| YTS (yts.gg) | ✅ Fully Supported |
 | Letterboxd | ⚠️ Partially Implemented |
 
 If the website isn't supported, badges won't appear.
@@ -332,7 +332,7 @@ Verify [`manifest.json`](../manifest.json) includes the website:
   "host_permissions": [
     "https://www.netflix.com/*",
     "https://www.imdb.com/*",
-    "https://yts.bz/*"
+    "https://yts.gg/*"
   ]
 }
 ```
@@ -465,15 +465,22 @@ Test if the extension is causing the issue:
 2. The extension uses the hero section year
 3. May not work correctly on all IMDb pages
 
-### YTS.bz
+### YTS (yts.gg)
+
+> **Note:** YTS rotates its primary domain frequently (yts.bz → yts.mx → yts.gg, and back).
+> The adapter matches a list of known mirror domains. If badges stop appearing on a
+> brand-new domain, add it to `YTS_DOMAINS` in `adapters/yts-adapter.js` **and** to the
+> `content_scripts[0].matches` and `web_accessible_resources[0].matches` lists in
+> `manifest.json`, then run `npm run build`.
 
 #### Issue: Badges not appearing on YTS
 
 **Solutions:**
-1. Ensure you're on `yts.bz`
+1. Ensure you're on `yts.gg` (or another supported mirror such as `yts.bz` / `yts.mx`)
 2. Try the main page and individual movie pages
 3. Check console for errors
 4. Verify your library contains the titles
+5. Confirm the extension's host permissions cover the domain you are on (chrome://extensions → Details → Site access)
 
 #### Issue: Badges on related movies not working
 

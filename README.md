@@ -30,7 +30,7 @@ Perfect for media enthusiasts who maintain a personal media collection, this ext
 |---------|-----|--------|
 | Netflix | netflix.com | ✅ Fully Supported |
 | IMDb | imdb.com | ✅ Fully Supported |
-| YTS.bz | yts.bz | ✅ Fully Supported |
+| YTS | yts.gg | ✅ Fully Supported |
 
 > **Note:** All supported platforms work for both movies and TV shows.
 
@@ -57,7 +57,7 @@ The extension leverages Chrome's messaging API to communicate between content sc
 
 Once configured, using the extension is completely automatic:
 
-1. **Browse** - Visit any supported website (Netflix, IMDb, YTS.bz, etc.)
+1. **Browse** - Visit any supported website (Netflix, IMDb, YTS, etc.)
 2. **Discover** - Navigate through movie and TV show listings and individual pages
 3. **Identify** - Look for the **"✓ In Library"** badge next to movie and TV show titles you own
 4. **Enjoy** - No manual interaction required - the extension works silently in the background

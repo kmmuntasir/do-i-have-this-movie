@@ -29,7 +29,12 @@
         "*://*.netflix.com/*",
         "*://*.imdb.com/*",
         "*://*.letterboxd.com/*",
-        "*://*.yts.bz/*"
+        "*://*.yts.gg/*",
+        "*://*.yts.bz/*",
+        "*://*.yts.mx/*",
+        "*://*.yts.lt/*",
+        "*://*.yts.am/*",
+        "*://*.yts.rs/*"
       ],
       "js": [
         "dist/content-bundled.js"
@@ -47,7 +52,7 @@
   "web_accessible_resources": [
     {
       "resources": ["icons/badge.svg"],
-      "matches": ["*://*.netflix.com/*", "*://*.imdb.com/*", "*://*.letterboxd.com/*", "*://*.yts.bz/*"]
+      "matches": ["*://*.netflix.com/*", "*://*.imdb.com/*", "*://*.letterboxd.com/*", "*://*.yts.gg/*", "*://*.yts.bz/*", "*://*.yts.mx/*", "*://*.yts.lt/*", "*://*.yts.am/*", "*://*.yts.rs/*"]
     }
   ]
 }

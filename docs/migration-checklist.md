@@ -127,7 +127,7 @@ content.js
 
 - [ ] Create [`adapters/yts-adapter.js`](../adapters/yts-adapter.js)
 - [ ] Extend [`BaseAdapter`](../adapters/base-adapter.js)
-- [ ] Implement `canHandle(hostname)` - check for 'yts.bz'
+- [ ] Implement `canHandle(hostname)` - check for 'yts.gg'
 - [ ] Implement `getTargetSelectors()` - return YTS selectors
 - [ ] Implement `extractTitle(element)` - extract from YTS cards
 - [ ] Implement `extractYear(element)` - extract year from YTS
@@ -212,7 +212,7 @@ content.js
 
 #### YTS Testing
 
-- [ ] Visit YTS.bz
+- [ ] Visit YTS (yts.gg)
 - [ ] Browse movie listings
 - [ ] Verify badges appear correctly
 - [ ] Test related movies section

@@ -141,16 +141,13 @@ async function saveSourceConfig(sourceId) {
   }
   
   try {
-    // Save credentials
+    // Save credentials to storage. The background service worker listens for
+    // changes to `sources` and activates/deactivates the source itself -- the
+    // options page has its own SourceRegistry instance whose adapters are
+    // never registered, so calling enableSource() here would always throw
+    // `Source "jellyfin" not found`.
     await sourceRegistry.saveSourceCredentials(sourceId, config, config.enabled);
-    
-    // Enable or disable the source
-    if (config.enabled) {
-      await sourceRegistry.enableSource(sourceId);
-    } else {
-      await sourceRegistry.disableSource(sourceId);
-    }
-    
+
     showStatus(sourceId, 'Settings saved successfully!', 'success');
   } catch (error) {
     showStatus(sourceId, `Error saving settings: ${error.message}`, 'error');

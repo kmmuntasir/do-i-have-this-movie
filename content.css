@@ -15,9 +15,20 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-.jellyfin-badge svg {
+.jellyfin-badge svg,
+div.jellyfin-badge > img.jellyfin-badge__logo {
   width: 70%;
   height: 70%;
+  display: block;
+  /* Host pages ship rules like yts.gg's `#movie-related img { width:92px;
+     height:138px }`, which out-specify this stylesheet and stretch the logo
+     across the tile. These declarations are a readable default; content.js
+     also pins the same geometry inline with !important. */
+  max-width: none;
+  max-height: none;
+  min-width: 0;
+  min-height: 0;
+  object-fit: contain;
 }
 
 /* Specific fix for YTS main poster with its 15px padding */

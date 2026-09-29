@@ -137,7 +137,7 @@ If you encounter CORS (Cross-Origin Resource Sharing) errors:
 
 After configuring the extension:
 
-1. Visit a supported website (Netflix, IMDb, or YTS.bz)
+1. Visit a supported website (Netflix, IMDb, or YTS)
 2. Navigate to a movie or TV show listing
 3. Look for the **"✓ In Library"** badge next to titles you own
 4. Try browsing different pages to ensure dynamic detection works

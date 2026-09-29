@@ -25,26 +25,44 @@ sourceRegistry.register('local', localAdapter);
 // Initialize with migration
 (async function initialize() {
   await migrateJellyfinSettings();
-  await initializeSources();
+  await syncSourcesFromStorage();
 })();
 
 /**
- * Initialize all enabled sources on startup
+ * Re-enable/disable registered sources so the in-memory registry matches the
+ * `sources` object in storage. Called on SW startup and whenever storage
+ * changes, so saving credentials in the options page takes effect immediately
+ * instead of waiting for the service worker to be recycled.
  */
-async function initializeSources() {
+async function syncSourcesFromStorage() {
   const data = await chrome.storage.local.get(['sources']);
   const sources = data.sources || {};
-  
+
   for (const [id, config] of Object.entries(sources)) {
-    if (config.enabled) {
-      try {
+    try {
+      if (config.enabled) {
         await sourceRegistry.enableSource(id);
-      } catch (error) {
-        console.error(`Failed to enable source ${id}:`, error);
+      } else {
+        await sourceRegistry.disableSource(id);
       }
+    } catch (error) {
+      console.error(`Failed to configure source ${id}:`, error);
+    }
+  }
+
+  // Deactivate sources that were removed from storage entirely.
+  for (const { id } of sourceRegistry.getAllAdapters()) {
+    if (!(id in sources)) {
+      sourceRegistry.disableSource(id);
     }
   }
 }
+
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === 'local' && changes.sources) {
+    syncSourcesFromStorage();
+  }
+});
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === 'CHECK_MOVIE') {

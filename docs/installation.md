@@ -58,7 +58,7 @@ If the extension doesn't appear in your list:
 
 Chrome may show permission warnings during installation. These are normal and necessary for the extension to:
 
-- Access content on supported websites (Netflix, IMDb, YTS.bz, etc.)
+- Access content on supported websites (Netflix, IMDb, YTS, etc.)
 - Communicate with your Jellyfin server
 - Store your configuration settings
 

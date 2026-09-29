@@ -24,6 +24,8 @@
   "homepage": "https://github.com/kmmuntasir/do-i-have-this-movie#readme",
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^16.0.3",
+    "jsdom": "^30.1.1",
+    "playwright": "^1.63.0",
     "rollup": "^4.55.1"
   }
 }

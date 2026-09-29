@@ -1,7 +1,14 @@
 import BaseAdapter from './base-adapter.js';
 
 /**
- * YTSAdapter - Handles movie detection on YTS.bz
+ * Known YTS mirror domains. YTS rotates its primary domain frequently, so we
+ * match the whole family instead of a single hardcoded host. Last verified:
+ * yts.gg (yts.bz now 301-redirects to web.yts.gg; yts.mx no longer resolves).
+ */
+const YTS_DOMAINS = ['yts.gg', 'yts.bz', 'yts.mx', 'yts.lt', 'yts.am', 'yts.rs'];
+
+/**
+ * YTSAdapter - Handles movie detection on YTS (yts.gg)
  */
 class YTSAdapter extends BaseAdapter {
   /**
@@ -10,7 +17,9 @@ class YTSAdapter extends BaseAdapter {
    * @returns {boolean} - True if this adapter can handle the hostname
    */
   canHandle(hostname) {
-    return hostname.includes('yts.bz');
+    return YTS_DOMAINS.some(
+      (domain) => hostname === domain || hostname.endsWith(`.${domain}`)
+    );
   }
 
   /**

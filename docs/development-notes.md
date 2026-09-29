@@ -246,7 +246,7 @@ adapters/              # Site-specific implementations
   ├── adapter-registry.js     # Adapter registry (singleton)
   ├── netflix-adapter.js      # Netflix implementation
   ├── imdb-adapter.js         # IMDb implementation
-  └── yts-adapter.js          # YTS.bz implementation
+  └── yts-adapter.js          # YTS (yts.gg) implementation
 
 background.js         # Background service worker (API communication)
 content.js            # Main content script (DOM scanning, badge injection)
@@ -422,7 +422,7 @@ When making changes, test on all supported websites:
 - [ ] Top rated page
 - [ ] Year extraction works
 
-#### YTS.bz
+#### YTS (yts.gg)
 - [ ] Browse page
 - [ ] Individual movie page
 - [ ] Related movies section

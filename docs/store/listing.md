@@ -1,6 +1,6 @@
 # Chrome Web Store listing text
 
-Copy each block into the matching dashboard field.
+Copy each block into the matching dashboard field. Keep brand names to a minimum: a description that lists many of them was rejected as keyword spam.
 
 ## Description
 
@@ -18,7 +18,7 @@ FEATURES
 SETUP
 Open the extension's settings, enable a source, enter its server URL and API key, click Test, then Save. Chrome asks once to allow access to your server's address.
 
-This is a convenience tool for organizing a personal media collection. It does not download, stream, host or link to any content, and does not promote piracy. Not affiliated with Netflix, IMDb, YTS, Jellyfin, Emby or Plex.
+This is a convenience tool for organizing a personal media collection. It does not download, stream, host or link to any content, and does not promote piracy. Not affiliated with any of those mentioned websites or tools.
 
 ## Single purpose
 

@@ -1,6 +1,6 @@
 {
   "name": "do-i-have-this-movie",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Chrome extension that shows a badge on movies already in your Jellyfin, Emby or Plex library.",
   "main": "background.js",
   "directories": {

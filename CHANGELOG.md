@@ -3,6 +3,20 @@
 All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-11-22
+
+### Added
+- opt-in settings sync through Chrome account
+
+### Fixed
+- update Netflix selectors for public title pages; add Netflix screenshot
+- place IMDb title-page badge on the poster; add IMDb screenshot
+- wait for source activation before answering movie checks
+- IMDb year extraction (hero selector broke, cards used the page movie's year)
+
+### Changed
+- add disclaimer
+
 ## [1.0.0] - 2026-11-22
 
 First public release.

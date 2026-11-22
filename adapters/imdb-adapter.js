@@ -50,6 +50,10 @@ class IMDBAdapter extends BaseAdapter {
    * @returns {HTMLElement} - The parent element to inject the badge into
    */
   getBadgeParent(element) {
+    // Title page: badge the poster, not the <h1>, where it would sit on the text.
+    if (element.dataset.testid === 'hero__primary-text') {
+      return document.querySelector('[data-testid="hero-media__poster"]') || element;
+    }
     return element;
   }
 }

@@ -22,6 +22,7 @@ Browse Netflix, IMDb or YTS as usual. A small badge appears on every title that 
 
 <details><summary>More screenshots</summary>
 
+![Inception on IMDb](docs/screenshots/imdb-1.png)
 ![Inception on YTS](docs/screenshots/yts-1.png)
 ![The Shawshank Redemption on YTS](docs/screenshots/yts-2.png)
 

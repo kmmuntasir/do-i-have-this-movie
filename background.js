@@ -5,6 +5,7 @@ import JellyfinSourceAdapter from './sources/jellyfin-source-adapter.js';
 import EmbySourceAdapter from './sources/emby-source-adapter.js';
 import PlexSourceAdapter from './sources/plex-source-adapter.js';
 import LocalSourceAdapter from './sources/local-source-adapter.js';
+import { pullSources } from './sources/sync.js';
 
 // Register the Jellyfin adapter
 const jellyfinAdapter = new JellyfinSourceAdapter();
@@ -25,6 +26,7 @@ sourceRegistry.register('local', localAdapter);
 // Initialize with migration
 (async function initialize() {
   await migrateJellyfinSettings();
+  await pullSources().catch(() => {});
   await syncSourcesFromStorage();
 })();
 
@@ -61,6 +63,12 @@ async function syncSourcesFromStorage() {
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area === 'local' && changes.sources) {
     syncSourcesFromStorage();
+  }
+});
+
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === 'sync' && changes.sources) {
+    pullSources().catch(e => console.warn('Settings pull failed:', e));
   }
 });
 

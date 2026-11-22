@@ -9,7 +9,11 @@ _Last updated: 2026-11-22_
 - The server URLs and API keys or tokens you enter on the settings page.
 - Your source settings (which sources are enabled).
 
-This data is stored locally in your browser using `chrome.storage`, together with the list of movie file names if you use Local Files. It never leaves your device except as described below.
+By default this data is stored locally in your browser using `chrome.storage`, together with the list of movie file names if you use Local Files. It never leaves your device except as described below.
+
+## Optional sync
+
+If you turn on "Sync settings across my devices" on the settings page, your server URLs, API keys and source settings are also stored through Chrome sync in your Google account, under Google's terms. It is off by default. Local Files settings are never synced. Turning the option off deletes the synced copy. Chrome sync can be encrypted with your own passphrase.
 
 ## What the extension sends
 

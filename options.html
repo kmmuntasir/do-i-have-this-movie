@@ -9,6 +9,16 @@
   <div class="container">
     <h1>Media Sources Configuration</h1>
     
+    <div class="source-section">
+      <label class="toggle">
+        <input type="checkbox" id="sync-enabled">
+        <span class="slider"></span>
+        <span class="label-text">Sync settings across my devices (Chrome account)</span>
+      </label>
+      <p class="note">Off by default. When on, server URLs and API keys are stored in your Google account through Chrome sync, readable by anyone with access to that account (set a sync passphrase in Chrome to encrypt them). Local Files settings are never synced. Turning this off deletes the synced copy.</p>
+      <div class="status" id="sync-status"></div>
+    </div>
+
     <div class="sources-container">
       <!-- Jellyfin Section -->
       <div class="source-section" data-source="jellyfin">

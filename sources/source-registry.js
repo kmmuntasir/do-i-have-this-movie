@@ -1,3 +1,5 @@
+import { pushSources } from './sync.js';
+
 /**
  * Singleton registry to manage all source adapters
  */
@@ -112,6 +114,7 @@ class SourceRegistry {
     const sources = data.sources || {};
     sources[id] = { ...credentials, enabled };
     await chrome.storage.local.set({ sources });
+    await pushSources(sources).catch(e => console.warn('Settings sync failed:', e));
   }
 }
 

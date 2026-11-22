@@ -1,4 +1,5 @@
 import sourceRegistry from './sources/source-registry.js';
+import { isSyncEnabled, setSyncEnabled } from './sources/sync.js';
 import { extractMovieInfo, isMovieFile } from './sources/utils/file-matcher.js';
 
 // Source configuration
@@ -26,6 +27,7 @@ async function init() {
   await loadAllSourceConfigs();
   setupEventListeners();
   await setupLocalFolder();
+  await setupSyncToggle();
 }
 
 // Load all source configurations
@@ -261,6 +263,26 @@ async function setupLocalFolder() {
       await scanFolder(handle);
     } catch (error) {
       showStatus('local', `Error: ${error.message}`, 'error');
+    }
+  });
+}
+
+async function setupSyncToggle() {
+  const box = document.getElementById('sync-enabled');
+  const status = document.getElementById('sync-status');
+  box.checked = await isSyncEnabled();
+  box.addEventListener('change', async () => {
+    try {
+      const result = await setSyncEnabled(box.checked);
+      if (result === 'pulled') await loadAllSourceConfigs();
+      status.textContent = {
+        pulled: 'Loaded your synced settings.',
+        pushed: 'Settings will now sync through your Chrome account.',
+        removed: 'Sync off. The copy in your Google account was deleted.'
+      }[result];
+    } catch (error) {
+      box.checked = !box.checked;
+      status.textContent = `Sync failed: ${error.message}`;
     }
   });
 }

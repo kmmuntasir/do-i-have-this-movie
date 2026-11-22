@@ -16,7 +16,7 @@ Browse Netflix, IMDb or YTS as usual. A small badge appears on every title that 
 - **Multiple servers.** Jellyfin, Emby and Plex. Enable any combination; sources are queried in parallel.
 - **Fuzzy matching.** Matches by title and year, tolerating punctuation, casing and subtitle differences.
 - **Works with dynamic pages.** Picks up content that loads while you scroll or navigate.
-- **Private.** Credentials stay in your browser. The only network requests go to the servers you configure. See [PRIVACY.md](PRIVACY.md).
+- **Private.** Credentials stay in your browser, unless you opt in to syncing settings through your Chrome account. The only network requests go to the servers you configure. See [PRIVACY.md](PRIVACY.md).
 
 ![The Godfather on YTS with badges on the poster and similar movies](docs/screenshots/yts-3.png)
 

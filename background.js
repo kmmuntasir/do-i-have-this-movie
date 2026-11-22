@@ -23,8 +23,10 @@ sourceRegistry.register('plex', plexAdapter);
 const localAdapter = new LocalSourceAdapter();
 sourceRegistry.register('local', localAdapter);
 
-// Initialize with migration
-(async function initialize() {
+// Initialize with migration. Message handlers await `ready`: a sleeping service
+// worker wakes on a message, and answering before sources are activated would
+// report "no sources enabled".
+const ready = (async function initialize() {
   await migrateJellyfinSettings();
   await pullSources().catch(() => {});
   await syncSourcesFromStorage();
@@ -74,7 +76,8 @@ chrome.storage.onChanged.addListener((changes, area) => {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === 'CHECK_MOVIE') {
-    checkAllSources(request.title, request.year)
+    ready
+      .then(() => checkAllSources(request.title, request.year))
       .then(result => sendResponse(result))
       .catch(error => {
         console.error('Error checking movie:', error);

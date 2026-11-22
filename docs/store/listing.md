@@ -42,4 +42,4 @@ Show a badge on movies on Netflix, IMDb and YTS pages that are already in the us
 - Privacy policy: https://github.com/kmmuntasir/do-i-have-this-movie/blob/main/PRIVACY.md
 - Homepage: https://github.com/kmmuntasir/do-i-have-this-movie
 - Support: https://github.com/kmmuntasir/do-i-have-this-movie/issues
-- Category: Productivity. Language: English.
+- Category: Lifestyle > Entertainment. Language: English.

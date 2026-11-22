@@ -1,22 +1,31 @@
 {
   "name": "do-i-have-this-movie",
   "version": "1.0.0",
-  "description": "![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg)\r ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-green.svg)\r ![Manifest V3](https://img.shields.io/badge/Manifest-V3-orange.svg)",
+  "description": "Chrome extension that shows a badge on movies already in your Jellyfin, Emby or Plex library.",
   "main": "background.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "build": "rollup -c",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "npm run build && node scripts/package.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kmmuntasir/do-i-have-this-movie.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "chrome-extension",
+    "jellyfin",
+    "emby",
+    "plex",
+    "netflix",
+    "imdb",
+    "yts"
+  ],
+  "author": "Muntasir Billah Munna",
+  "license": "GPL-3.0-only",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/kmmuntasir/do-i-have-this-movie/issues"
@@ -27,5 +36,6 @@
     "jsdom": "^30.1.1",
     "playwright": "^1.63.0",
     "rollup": "^4.55.1"
-  }
+  },
+  "private": true
 }

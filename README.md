@@ -1,98 +1,100 @@
 # Do I Have This Movie?
 
-![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg)
-![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-green.svg)
-![Manifest V3](https://img.shields.io/badge/Manifest-V3-orange.svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+[![Manifest V3](https://img.shields.io/badge/Manifest-V3-orange.svg)](manifest.json)
+[![Build](https://github.com/kmmuntasir/do-i-have-this-movie/actions/workflows/ci.yml/badge.svg)](https://github.com/kmmuntasir/do-i-have-this-movie/actions/workflows/ci.yml)
 
-## 🔗 Repository
+A Chrome extension that tells you, right on the page, whether a movie you are looking at is already in your personal media server.
 
-**GitHub:** [Do I Have This Movie?](https://github.com/kmmuntasir/do-i-have-this-movie)
+Browse Netflix, IMDb or YTS as usual. A small badge appears on every title that exists in your Jellyfin, Emby or Plex library. No more searching your library by hand before you download or watch something.
 
-## 📖 Description
+## Features
 
-**Do I Have This Movie?** is a Chrome browser extension that helps you quickly check if movies and TV shows you encounter on streaming platforms and media databases are already in your personal Jellyfin media server library.
+- **Badges on posters.** Movies already in your library get a marker on browse pages, search results, detail pages and "similar movies" lists.
+- **Multiple servers.** Jellyfin, Emby and Plex. Enable any combination; sources are queried in parallel.
+- **Fuzzy matching.** Matches by title and year, tolerating punctuation, casing and subtitle differences.
+- **Works with dynamic pages.** Picks up content that loads while you scroll or navigate.
+- **Private.** Credentials stay in your browser. The only network requests go to the servers you configure. See [PRIVACY.md](PRIVACY.md).
 
-Perfect for media enthusiasts who maintain a personal media collection, this extension eliminates the need to manually search your library when browsing Netflix, IMDb, or other media platforms. Simply browse as usual, and the extension will automatically display visual indicators on movies and TV shows you already own.
+![The Godfather on YTS with badges on the poster and similar movies](docs/screenshots/yts-3.png)
 
-## ✨ Features
+<details><summary>More screenshots</summary>
 
-- **Real-time Media Detection** - Automatically identifies movies and TV shows on supported websites as you browse
-- **Visual Badges** - Instant recognition with clear "✓ In Library" badges on movies and TV shows you own
-- **Fuzzy Matching** - Smart title and year matching that handles variations in naming conventions
-- **Dynamic Content Detection** - Handles Single Page Application (SPA) navigation seamlessly
-- **Site-specific Optimizations** - Custom detection logic for different website layouts
-- **Non-intrusive Design** - Minimal visual impact that enhances rather than disrupts browsing
-- **Secure Credential Storage** - Safely stores your Jellyfin server URL and API key
+![Inception on YTS](docs/screenshots/yts-1.png)
+![The Shawshank Redemption on YTS](docs/screenshots/yts-2.png)
 
-## 🌐 Supported Websites
+</details>
 
-| Website | URL | Status |
-|---------|-----|--------|
-| Netflix | netflix.com | ✅ Fully Supported |
-| IMDb | imdb.com | ✅ Fully Supported |
-| YTS | yts.gg | ✅ Fully Supported |
+## Supported websites
 
-> **Note:** All supported platforms work for both movies and TV shows.
+| Website | Domains |
+|---------|---------|
+| Netflix | `netflix.com` |
+| IMDb | `imdb.com` |
+| YTS | `yts.pw`, `yts-official.am`, and older mirrors (`yts.gg`, `yts.bz`, `yts.mx`, `yts.lt`, `yts.am`, `yts.rs`) |
 
-## 📋 Prerequisites
+Want another site? See [Adding new websites](docs/adding-new-websites.md). Adapters are small.
 
-Before installing the extension, ensure you have:
+## Supported media servers
 
-- **Jellyfin Media Server** - A running instance of Jellyfin with your media library configured
-- **API Key** - A valid API key generated from your Jellyfin dashboard
-- **Chrome Browser** - Google Chrome (or Chromium-based browser) with Manifest V3 support
+| Server | Status |
+|--------|--------|
+| Jellyfin | Supported |
+| Emby | Supported |
+| Plex | Supported |
+| Local files | Supported: pick a folder in settings; file names are indexed locally |
 
+## Install
 
-## 🔧 How It Works
+**From the Chrome Web Store:** _link coming soon._
 
-The extension uses a three-tier architecture:
+**From source:**
 
-1. **Content Scripts** (`content.js`) - Run on supported web pages to detect movie and TV show titles and years from the DOM
-2. **Background Script** (`background.js`) - Receives media data from content scripts and queries your Jellyfin API
-3. **Badge Injection** - When a match is found, the content script injects a visual badge next to the movie or TV show title
+```bash
+git clone https://github.com/kmmuntasir/do-i-have-this-movie.git
+cd do-i-have-this-movie
+npm install
+npm run build
+```
 
-The extension leverages Chrome's messaging API to communicate between content scripts and the background script, ensuring efficient and secure data handling.
+Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked** and select the project folder.
 
-## 📱 Usage
+Or download the zip from the [Releases](https://github.com/kmmuntasir/do-i-have-this-movie/releases) page, unzip it, and load that folder.
 
-Once configured, using the extension is completely automatic:
+## Configure
 
-1. **Browse** - Visit any supported website (Netflix, IMDb, YTS, etc.)
-2. **Discover** - Navigate through movie and TV show listings and individual pages
-3. **Identify** - Look for the **"✓ In Library"** badge next to movie and TV show titles you own
-4. **Enjoy** - No manual interaction required - the extension works silently in the background
+1. Click the extension icon, then **Open Settings**.
+2. Enable a source and enter its server URL and API key or token. For Local Files, click **Choose folder…** instead.
+3. Click **Test Connection**, then **Save**. Chrome asks once to allow access to your server's address.
 
-The badge appears automatically as you browse, even when navigating within Single Page Applications (SPAs) that don't trigger full page reloads.
+Details per server: [Setup guide](docs/setup-guide.md).
 
-## 📚 Documentation
+## How it works
 
-For detailed information about the extension, please refer to the following documentation:
+- `content.js` (bundled to `dist/content-bundled.js`) runs on supported sites. A per-site adapter in `adapters/` finds movie cards and extracts title and year.
+- `background.js` receives those titles and queries each enabled source adapter in `sources/`.
+- On a match the content script injects the badge.
 
-- [Installation Guide](docs/installation.md) - Step-by-step installation instructions
-- [Setup Guide](docs/setup-guide.md) - Configure Jellyfin server and API key
-- [Architecture](docs/architecture.md) - Technical architecture and design patterns
-- [Adding New Websites](docs/adding-new-websites.md) - Guide for adding support for new websites
-- [Migration Checklist](docs/migration-checklist.md) - Checklist for migrating to adapter-based architecture
-- [Future Enhancements](docs/future-enhancements.md) - Roadmap and planned features
-- [Build Process](docs/build-process.md) - Build process and development workflow
-- [Troubleshooting](docs/troubleshooting.md) - Common issues and solutions
-- [Development Notes](docs/development-notes.md) - Development guidelines and notes
+More in [Architecture](docs/architecture.md).
 
-## 📄 License
+## Development
 
-This project is licensed under the **GNU General Public License v3.0** - see the [`LICENSE`](LICENSE) file for details.
+```bash
+npm install
+npm run build      # bundle content script into dist/
+npm run package    # build and create do-i-have-this-movie-<version>.zip
+```
 
-## 🤝 Contributing
+Reload the extension at `chrome://extensions` after each build. See [Build process](docs/build-process.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Contributions are welcome! If you'd like to help improve this extension, please:
+## Documentation
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+[Installation](docs/installation.md) · [Setup](docs/setup-guide.md) · [Architecture](docs/architecture.md) · [Adding websites](docs/adding-new-websites.md) · [Build process](docs/build-process.md) · [Troubleshooting](docs/troubleshooting.md) · [Roadmap](docs/future-enhancements.md)
 
-For bug reports or feature requests, please open an issue on GitHub.
+## Contributing
 
----
+Bug reports, site adapters and new source adapters are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) first.
 
-**Made with ❤️ for media enthusiasts who love their personal movie and TV show libraries**
+## License
+
+[GPL-3.0](LICENSE). Not affiliated with Netflix, IMDb, YTS, Jellyfin, Emby or Plex.

@@ -37,9 +37,11 @@ class IMDBAdapter extends BaseAdapter {
    * @returns {number|null} - The movie year, or null if not available
    */
   extractYear(element) {
-    // Hero section year
-    const heroYear = document.querySelector('[data-testid="hero__primary-text"] + ul li a')?.textContent;
-    return heroYear ? parseInt(heroYear) : null;
+    // Cards show no year; the hero year would be the page movie's, not the card's.
+    if (element.dataset.testid !== 'hero__primary-text') return null;
+    // The year link sits in a list after the <h1> that wraps the title span.
+    const year = document.querySelector('a[href*="/releaseinfo"]')?.textContent;
+    return year ? parseInt(year) : null;
   }
 
   /**

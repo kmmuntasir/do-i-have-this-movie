@@ -18,6 +18,10 @@ This data is stored locally in your browser using `chrome.storage`, together wit
 
 No analytics, telemetry, advertising or remote code are used.
 
+## Disclaimer
+
+This extension is a convenience tool that compares movie titles on a web page with your own media library. It does not download, stream, host or link to any content and does not promote piracy.
+
 ## Permissions
 
 - `storage`: save your settings.

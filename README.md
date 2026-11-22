@@ -8,6 +8,8 @@ A Chrome extension that tells you, right on the page, whether a movie you are lo
 
 Browse Netflix, IMDb or YTS as usual. A small badge appears on every title that exists in your Jellyfin, Emby or Plex library. No more searching your library by hand before you download or watch something.
 
+> **Disclaimer:** this is a convenience tool for organizing a personal media collection. It only compares titles on a web page with a library you already run. It does not download, stream, host or link to any content, and it does not promote or encourage piracy. YTS and similar sites are supported only because their page layouts are popular for browsing movie listings; you are responsible for complying with the laws and terms of service that apply to you.
+
 ## Features
 
 - **Badges on posters.** Movies already in your library get a marker on browse pages, search results, detail pages and "similar movies" lists.
@@ -97,4 +99,4 @@ Bug reports, site adapters and new source adapters are welcome. Read [CONTRIBUTI
 
 ## License
 
-[GPL-3.0](LICENSE). Not affiliated with Netflix, IMDb, YTS, Jellyfin, Emby or Plex.
+[GPL-3.0](LICENSE). Not affiliated with Netflix, IMDb, YTS, Jellyfin, Emby or Plex. See the disclaimer above.

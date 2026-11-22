@@ -1,14 +1,13 @@
 {
   "manifest_version": 3,
   "name": "Do I Have This Movie?",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Check if a movie on Netflix or IMDb is in your Jellyfin library.",
   "permissions": [
-    "storage",
-    "activeTab"
+    "storage"
   ],
-  "host_permissions": [
-    "*://*/"
+  "optional_host_permissions": [
+    "*://*/*"
   ],
   "options_page": "options.html",
   "action": {
@@ -28,7 +27,8 @@
       "matches": [
         "*://*.netflix.com/*",
         "*://*.imdb.com/*",
-        "*://*.letterboxd.com/*",
+        "*://*.yts.pw/*",
+        "*://*.yts-official.am/*",
         "*://*.yts.gg/*",
         "*://*.yts.bz/*",
         "*://*.yts.mx/*",
@@ -51,8 +51,21 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["icons/badge.svg"],
-      "matches": ["*://*.netflix.com/*", "*://*.imdb.com/*", "*://*.letterboxd.com/*", "*://*.yts.gg/*", "*://*.yts.bz/*", "*://*.yts.mx/*", "*://*.yts.lt/*", "*://*.yts.am/*", "*://*.yts.rs/*"]
+      "resources": [
+        "icons/badge.svg"
+      ],
+      "matches": [
+        "*://*.netflix.com/*",
+        "*://*.imdb.com/*",
+        "*://*.yts.pw/*",
+        "*://*.yts-official.am/*",
+        "*://*.yts.gg/*",
+        "*://*.yts.bz/*",
+        "*://*.yts.mx/*",
+        "*://*.yts.lt/*",
+        "*://*.yts.am/*",
+        "*://*.yts.rs/*"
+      ]
     }
   ]
 }

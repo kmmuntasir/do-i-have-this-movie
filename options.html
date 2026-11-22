@@ -103,20 +103,25 @@
         </div>
         <div class="config-form">
           <div class="field-group">
-            <label for="local-paths">Movie Directories (one per line)</label>
-            <textarea id="local-paths" rows="4" placeholder="C:/Movies&#10;D:/Videos/HD"></textarea>
+            <label>Movie folder</label>
+            <div id="local-folder-info">No folder chosen.</div>
+            <div class="button-group">
+              <button type="button" id="local-choose-btn">Choose folder…</button>
+              <button type="button" id="local-rescan-btn" disabled>Rescan</button>
+            </div>
           </div>
           <div class="field-group checkbox-group">
             <label>
-              <input type="checkbox" id="local-recursive">
-              Search subdirectories
+              <input type="checkbox" id="local-recursive" checked>
+              Search subdirectories (applies on next scan)
             </label>
           </div>
           <div class="button-group">
+            <button class="test-btn" data-source="local">Test</button>
             <button class="save-btn" data-source="local">Save</button>
           </div>
           <div class="status" id="local-status"></div>
-          <p class="note">Note: Local file system access requires the File System Access API or a native host application.</p>
+          <p class="note">Only file names are indexed, inside this browser. Rescan after adding movies. Needs a Chromium browser with the File System Access API.</p>
         </div>
       </div>
     </div>

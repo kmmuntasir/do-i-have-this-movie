@@ -3,12 +3,12 @@ import BaseAdapter from './base-adapter.js';
 /**
  * Known YTS mirror domains. YTS rotates its primary domain frequently, so we
  * match the whole family instead of a single hardcoded host. Last verified:
- * yts.gg (yts.bz now 301-redirects to web.yts.gg; yts.mx no longer resolves).
+ * yts.pw. yts-official.am is a separate clone with a different DOM.
  */
-const YTS_DOMAINS = ['yts.gg', 'yts.bz', 'yts.mx', 'yts.lt', 'yts.am', 'yts.rs'];
+const YTS_DOMAINS = ['yts.pw', 'yts-official.am', 'yts.gg', 'yts.bz', 'yts.mx', 'yts.lt', 'yts.am', 'yts.rs'];
 
 /**
- * YTSAdapter - Handles movie detection on YTS (yts.gg)
+ * YTSAdapter - Handles movie detection on YTS (yts.pw, yts-official.am)
  */
 class YTSAdapter extends BaseAdapter {
   /**
@@ -27,7 +27,9 @@ class YTSAdapter extends BaseAdapter {
    * @returns {string[]} - Array of CSS selectors
    */
   getTargetSelectors() {
-    return ['.browse-movie-wrap', '#movie-poster', '#similar-movies a', '#movie-related a'];
+    return ['.browse-movie-wrap', '#movie-poster', '#similar-movies a', '#movie-related a',
+      // yts-official.am: cards are bare links, poster is .box-img
+      '.full > .browse-movie-link', '.box-img'];
   }
 
   /**
@@ -36,6 +38,8 @@ class YTSAdapter extends BaseAdapter {
    * @returns {string} - The movie title
    */
   extractTitle(element) {
+    if (element.matches('.box-img')) return document.querySelector('.title-year h1')?.textContent;
+    if (element.matches('.full > .browse-movie-link')) return element.querySelector('.product_name')?.textContent;
     if (element.id === 'movie-poster' || element.closest('#movie-poster')) {
       return document.querySelector('#movie-info h1')?.textContent;
     }
@@ -52,6 +56,14 @@ class YTSAdapter extends BaseAdapter {
    * @returns {number|null} - The movie year, or null if not available
    */
   extractYear(element) {
+    if (element.matches('.box-img')) {
+      const t = document.querySelector('.movie-year-header-row')?.textContent;
+      return t ? parseInt(t) : null;
+    }
+    if (element.matches('.full > .browse-movie-link')) {
+      const t = element.querySelector('.product_year')?.textContent;
+      return t ? parseInt(t) : null;
+    }
     if (element.id === 'movie-poster' || element.closest('#movie-poster')) {
       const yearText = document.querySelector('#movie-info h2')?.textContent;
       return yearText ? parseInt(yearText) : null;
@@ -71,6 +83,10 @@ class YTSAdapter extends BaseAdapter {
    * @returns {HTMLElement} - The parent element to inject the badge into
    */
   getBadgeParent(element) {
+    if (element.matches('.box-img')) return element;
+    if (element.matches('.full > .browse-movie-link')) {
+      return element.querySelector('.product_img') || element;
+    }
     if (element.id === 'movie-poster' || element.closest('#movie-poster')) {
       return element;
     }

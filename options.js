@@ -1,4 +1,5 @@
 import sourceRegistry from './sources/source-registry.js';
+import { extractMovieInfo, isMovieFile } from './sources/utils/file-matcher.js';
 
 // Source configuration
 const sourceConfigs = {
@@ -15,7 +16,7 @@ const sourceConfigs = {
     adapter: () => import('./sources/plex-source-adapter.js')
   },
   local: {
-    fields: ['paths', 'recursive'],
+    fields: ['recursive'],
     adapter: () => import('./sources/local-source-adapter.js')
   }
 };
@@ -24,6 +25,7 @@ const sourceConfigs = {
 async function init() {
   await loadAllSourceConfigs();
   setupEventListeners();
+  await setupLocalFolder();
 }
 
 // Load all source configurations
@@ -84,6 +86,7 @@ function collectSourceConfig(sourceId) {
 
 // Test connection for a source
 async function testConnection(sourceId) {
+  if (!(await ensureHostPermission(sourceId))) return;
   const config = collectSourceConfig(sourceId);
   const configData = sourceConfigs[sourceId];
   
@@ -121,6 +124,7 @@ async function testConnection(sourceId) {
 
 // Save configuration for a source
 async function saveSourceConfig(sourceId) {
+  if (!(await ensureHostPermission(sourceId))) return;
   const config = collectSourceConfig(sourceId);
   const configData = sourceConfigs[sourceId];
   
@@ -152,6 +156,113 @@ async function saveSourceConfig(sourceId) {
   } catch (error) {
     showStatus(sourceId, `Error saving settings: ${error.message}`, 'error');
   }
+}
+
+/**
+ * Request access to the media server's host. Host permissions are optional in
+ * the manifest, so Chrome shows a prompt the first time a server is saved.
+ * Must run first in a click handler so the user gesture is still valid.
+ */
+async function ensureHostPermission(sourceId) {
+  const input = document.getElementById(`${sourceId}-serverUrl`);
+  if (!input || !input.value.trim()) return true; // validation reports the empty field
+  let url;
+  try {
+    url = new URL(input.value.trim());
+  } catch {
+    return true; // validation reports the bad URL
+  }
+  const origins = [`${url.protocol}//${url.hostname}/*`];
+  if (await chrome.permissions.contains({ origins })) return true;
+  if (await chrome.permissions.request({ origins })) return true;
+  showStatus(sourceId, `Permission to access ${url.hostname} was denied.`, 'error');
+  return false;
+}
+
+// ---- Local files: folder picked here, file names indexed into storage ----
+
+const DB_NAME = 'dihtm';
+const openDb = () => new Promise((resolve, reject) => {
+  const req = indexedDB.open(DB_NAME, 1);
+  req.onupgradeneeded = () => req.result.createObjectStore('handles');
+  req.onsuccess = () => resolve(req.result);
+  req.onerror = () => reject(req.error);
+});
+async function idb(mode, fn) {
+  const db = await openDb();
+  return new Promise((resolve, reject) => {
+    const req = fn(db.transaction('handles', mode).objectStore('handles'));
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function collectVideoNames(dir, recursive, out = []) {
+  for await (const entry of dir.values()) {
+    if (entry.kind === 'directory') {
+      if (recursive) await collectVideoNames(entry, recursive, out);
+    } else if (isMovieFile(entry.name)) {
+      // Release files often lack a year the folder name has ("Movie (2009)/movie.mkv").
+      const ext = entry.name.slice(entry.name.lastIndexOf('.'));
+      const fromFile = extractMovieInfo(entry.name);
+      const fromDir = extractMovieInfo(dir.name);
+      out.push(!fromFile.year && fromDir.year ? dir.name + ext : entry.name);
+    }
+  }
+  return out;
+}
+
+async function scanFolder(handle) {
+  const recursive = document.getElementById('local-recursive').checked;
+  showLocalInfo('Scanning…');
+  const files = await collectVideoNames(handle, recursive);
+  const localIndex = { folderName: handle.name, files, scannedAt: Date.now() };
+  await chrome.storage.local.set({ localIndex });
+  showLocalInfo(localIndex);
+}
+
+function showLocalInfo(index) {
+  const el = document.getElementById('local-folder-info');
+  el.textContent = typeof index === 'string' ? index
+    : `${index.folderName}: ${index.files.length} movie files (scanned ${new Date(index.scannedAt).toLocaleString()})`;
+}
+
+async function setupLocalFolder() {
+  const choose = document.getElementById('local-choose-btn');
+  const rescan = document.getElementById('local-rescan-btn');
+  const { localIndex } = await chrome.storage.local.get('localIndex');
+  if (localIndex) showLocalInfo(localIndex);
+  if (!window.showDirectoryPicker) {
+    choose.disabled = true;
+    showLocalInfo('This browser does not support folder access.');
+    return;
+  }
+  const saved = await idb('readonly', s => s.get('movies')).catch(() => null);
+  rescan.disabled = !saved;
+
+  choose.addEventListener('click', async () => {
+    try {
+      const handle = await window.showDirectoryPicker({ mode: 'read' });
+      await idb('readwrite', s => s.put(handle, 'movies'));
+      rescan.disabled = false;
+      await scanFolder(handle);
+    } catch (error) {
+      if (error.name !== 'AbortError') showStatus('local', `Error: ${error.message}`, 'error');
+    }
+  });
+
+  rescan.addEventListener('click', async () => {
+    try {
+      const handle = await idb('readonly', s => s.get('movies'));
+      if ((await handle.requestPermission({ mode: 'read' })) !== 'granted') {
+        showStatus('local', 'Folder access was denied.', 'error');
+        return;
+      }
+      await scanFolder(handle);
+    } catch (error) {
+      showStatus('local', `Error: ${error.message}`, 'error');
+    }
+  });
 }
 
 // Show status message

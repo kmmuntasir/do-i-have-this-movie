@@ -33,8 +33,7 @@ Show a badge on movies on Netflix, IMDb and YTS pages that are already in the us
 
 ## Data usage (Privacy practices)
 
-- Authentication information: yes (API keys). Stored in the browser, optionally in the user's Chrome sync. Sent only to the user's own media server. Never sent to the developer.
-- Everything else: not collected.
+- Nothing collected. The developer receives no data: settings and API keys stay in the browser (or the user's own Chrome sync) and are sent only to the user's own media server.
 - Certify: not sold or transferred to third parties; not used for unrelated purposes; not used for creditworthiness or lending.
 
 ## Links

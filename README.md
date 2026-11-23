@@ -50,7 +50,7 @@ Want another site? See [Adding new websites](docs/adding-new-websites.md). Adapt
 
 ## Install
 
-**From the Chrome Web Store:** _link coming soon._
+**From the Chrome Web Store:** [Do I Have This Movie?](https://chromewebstore.google.com/detail/do-i-have-this-movie/obacjllbjgmhfgkkkelijnogcapacikp)
 
 **From source:**
 
